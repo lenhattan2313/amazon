@@ -18,4 +18,7 @@ body {
   .link {
     @apply cursor-pointer hover:underline;
   }
+  .image {
+    @apply relative min-h-full h-[400px];
+  }
 }
