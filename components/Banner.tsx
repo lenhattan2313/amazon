@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
@@ -18,29 +19,23 @@ const Banner = (props: Props) => {
         interval={5000}
       >
         <div className="image">
-          <Image
+          <img
             src={"https://links.papareact.com/gi1"}
-            loading="lazy"
             alt="banner1"
-            fill
             className="object-contain"
           />
         </div>
         <div className="image">
-          <Image
+          <img
             src={"https://links.papareact.com/6ff"}
-            loading="lazy"
             alt="banner1"
-            fill
             className="object-contain"
           />
         </div>
         <div className="image">
-          <Image
+          <img
             src={"https://links.papareact.com/7ma"}
-            loading="lazy"
             alt="banner1"
-            fill
             className="object-contain"
           />
         </div>

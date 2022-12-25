@@ -1,10 +1,22 @@
-import { Banner, Header } from "@/components";
+import { Banner, Header, ProductFeed } from "@/components";
 import { Inter } from "@next/font/google";
 import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+type HomeProps = {
+  productList: any[];
+};
+export async function getServerSideProps(context: any) {
+  const productList = await fetch("https://fakestoreapi.com/products").then(
+    (res) => res.json()
+  );
+  return {
+    props: {
+      productList,
+    },
+  };
+}
+export default function Home({ productList }: HomeProps) {
   return (
     <div className="bg-gray-100">
       <Head>
@@ -15,8 +27,8 @@ export default function Home() {
       </Head>
       <Header />
       <main className="max-w-screen-2xl mx-auto">
-        {/* Banner */}
         <Banner />
+        <ProductFeed productList={productList} />
       </main>
     </div>
   );
