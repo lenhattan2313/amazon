@@ -9,6 +9,6 @@ npm run dev
 # or
 yarn dev
 ```
-link: 
+link: https://amazon-sigma-nine.vercel.app/
 
 ![amazon](https://user-images.githubusercontent.com/41161304/209464130-b9c5544c-6bfa-4d8b-8f32-16b9d912643c.png)
