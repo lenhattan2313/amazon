@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React, { useState } from "react";
-import { AiFillStar } from "react-icons/ai";
+import React, { useState, useEffect } from "react";
+import { BsStarFill } from "react-icons/bs";
 import CurrencyFormat from "react-currency-format";
 type Props = {
   id: string;
@@ -13,10 +13,15 @@ type Props = {
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 function Product({ id, title, price, description, category, image }: Props) {
-  const [rating] = useState(
-    Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
-  );
-  const [hasPrime] = useState(Math.random() < 0.5);
+  const [rating, setRating] = useState(0);
+  const [hasPrime, setHasPrime] = useState(false);
+  useEffect(() => {
+    setRating(
+      Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
+    );
+    setHasPrime(Math.random() < 0.5);
+  }, []);
+
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
@@ -34,7 +39,9 @@ function Product({ id, title, price, description, category, image }: Props) {
         {Array(rating)
           .fill(0)
           .map((_, i) => (
-            <AiFillStar key={i} className="h-5 text-yellow-500" />
+            <div key={i}>
+              <BsStarFill className="h-5 w-5 text-yellow-500" />
+            </div>
           ))}
       </div>
       <p className="text-xs my-2 line-clamp-2">{description}</p>

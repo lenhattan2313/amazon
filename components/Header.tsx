@@ -5,9 +5,12 @@ import {
   AiOutlineMenu,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { signIn, signOut, useSession } from "next-auth/react";
 type Props = {};
 
 const Header = (props: Props) => {
+  const { data: session } = useSession();
+  console.log({ session });
   return (
     <header>
       <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
@@ -29,8 +32,17 @@ const Header = (props: Props) => {
           <AiOutlineSearch className="h-12 w-12 p-4 " />
         </div>
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <div className="link">
-            <p>Hello Tan</p>
+          <div
+            className="link"
+            onClick={() => {
+              if (!session) {
+                signIn();
+                return;
+              }
+              signOut();
+            }}
+          >
+            <p>{session ? `Hello, ${session.user?.name}` : "Sign in"}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
           <div className="link">
