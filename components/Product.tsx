@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { BsStarFill } from "react-icons/bs";
 import CurrencyFormat from "react-currency-format";
+import useBasketStore from "@/store/basket";
 type Props = {
   id: string;
   title: string;
@@ -15,6 +16,7 @@ const MIN_RATING = 1;
 function Product({ id, title, price, description, category, image }: Props) {
   const [rating, setRating] = useState(0);
   const [hasPrime, setHasPrime] = useState(false);
+  const addToBasket = useBasketStore((state) => state.addToBasket);
   useEffect(() => {
     setRating(
       Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
@@ -59,7 +61,23 @@ function Product({ id, title, price, description, category, image }: Props) {
           <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
         </div>
       )}
-      <button className="mt-auto button">Add to basket</button>
+      <button
+        className="mt-auto button"
+        onClick={() =>
+          addToBasket({
+            id,
+            title,
+            price,
+            description,
+            category,
+            image,
+            hasPrime,
+            rating,
+          })
+        }
+      >
+        Add to basket
+      </button>
     </div>
   );
 }

@@ -6,11 +6,14 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import useBasketStore from "@/store/basket";
 type Props = {};
 
 const Header = (props: Props) => {
   const { data: session } = useSession();
-  console.log({ session });
+  const router = useRouter();
+  const basketList = useBasketStore((state) => state.basketList);
   return (
     <header>
       <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
@@ -21,6 +24,7 @@ const Header = (props: Props) => {
             className="object-contain cursor-pointer"
             width={150}
             height={40}
+            onClick={() => router.push("/")}
           />
         </div>
         {/* SEARCH */}
@@ -49,9 +53,12 @@ const Header = (props: Props) => {
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="link relative flex items-center">
+          <div
+            className="link relative flex items-center"
+            onClick={() => router.push("/checkout")}
+          >
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 text-center text-black font-bold rounded-full bg-yellow-400">
-              0
+              {basketList.length}
             </span>
             <AiOutlineShoppingCart className="h-10 w-10" />
             <p className="font-extrabold md:text-sm  hidden md:block mt-2">
