@@ -1,6 +1,6 @@
 import create from "zustand";
 
-type ItemData = {
+export type ItemData = {
   id: string;
   title: string;
   description: string;

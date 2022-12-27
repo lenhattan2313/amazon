@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@next/font": "13.0.7",
+    "@stripe/react-stripe-js": "^1.16.1",
+    "@stripe/stripe-js": "^1.46.0",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/axios": "^0.14.0",
     "@types/next-auth": "^3.15.0",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
+    "axios": "^1.2.1",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "firebase": "^9.15.0",
@@ -26,6 +30,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-responsive-carousel": "^3.2.23",
+    "stripe": "^11.5.0",
     "typescript": "4.9.4",
     "zustand": "^4.1.5"
   },

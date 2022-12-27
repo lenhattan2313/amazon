@@ -5,12 +5,35 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import CurrencyFormat from "react-currency-format";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ""
+);
 
 type Props = {};
 
 const CheckOut = (props: Props) => {
   const { data: session } = useSession();
   const basketList = useBasketStore((state) => state.basketList);
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+    //call the backend to create a checkout session
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items: basketList,
+      email: session?.user?.email || "",
+    });
+    // redirect user to Stripe checkout session
+    const result = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+    if (result?.error) {
+      alert(result.error.message);
+    }
+  };
   return (
     <div className="bg-gray-100">
       <Header />
@@ -77,6 +100,8 @@ const CheckOut = (props: Props) => {
                 className={`button mt-2 ${
                   !session && "bg-gray-500 cursor-not-allowed"
                 }`}
+                role="link"
+                onClick={createCheckoutSession}
               >
                 {!session ? "Sign in to checkout" : "Proceed to checkout"}
               </button>
